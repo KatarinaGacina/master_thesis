@@ -1,0 +1,24 @@
+{
+    "test": [
+        "chr19_hap1",
+        "chr18_chr20_hap1", 
+        "chr21_hap1"
+    ],
+    "valid": [
+        "chr7_hap1"
+    ],
+    "train": [
+        "chr10_hap1",
+        "chrX_hap1",
+        "chr11_hap1",
+        "chr12_chr16_hap1",
+        "chr14_hap1",
+        "chr15_chr17_hap1",
+        "chr17_hap1",
+        "chr1_chr5_hap1",
+        "chr1_hap1",
+        "chr2_hap1",
+        "chr3_chr13_hap1",
+        "chr6_chr8_hap1"
+    ]
+}

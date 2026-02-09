@@ -30,6 +30,11 @@ if __name__ == "__main__":
 
     datamodule = RepresentationsDataModule(config_params, parser_args, data_seed=42)
     model = BaseLightningModule(config_params, parser_args["model"])
+    """model = BaseLightningModule.load_from_checkpoint(
+        "/checkpoints/experiment_name/last.ckpt",
+        config=config_params,
+        model_name=parser_args["model"]
+    )"""
 
     if torch.cuda.is_available():
         accelerator = "gpu"

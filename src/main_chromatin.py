@@ -35,6 +35,12 @@ if __name__ == "__main__":
 
     datamodule = ChromDataModule(config_params, parser_args, data_seed=custom_seed, only_m=bool(pretrained))
     model = ChromatinLightningModule(config_params, parser_args["model"], pretrained=pretrained)
+    """model = ChromatinLightningModule.load_from_checkpoint(
+        "/checkpoints/experiment_name/last.ckpt",
+        config=config_params,
+        model_name=parser_args["model"], 
+        pretrained=pretrained,
+    )"""
 
     if torch.cuda.is_available():
         accelerator = "gpu"

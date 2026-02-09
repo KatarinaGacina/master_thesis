@@ -35,6 +35,11 @@ if __name__ == "__main__":
 
     datamodule = GeneDataModule(config_params, parser_args)
     model = GeneLightningModule(config_params, parser_args, pretrained=pretrained)
+    """model = GeneLightningModule.load_from_checkpoint(
+        "/path/checkpoints/experiment_name/last.ckpt",
+        config=config_params,
+        parser_args=parser_args
+    )"""
 
     if torch.cuda.is_available():
         accelerator = "gpu"

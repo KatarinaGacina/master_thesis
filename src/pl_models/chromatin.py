@@ -219,9 +219,8 @@ class ChromatinLightningModule(pl.LightningModule):
         update_binary_cm(preds_masked, y_masked, self.cm)
 
         logits_masked = logits[mask].detach()
-        #probs = torch.sigmoid(logits_masked)
     
-        self.auroc.update(logits_masked, y_masked) #change to probs if small batch sizes 
+        self.auroc.update(logits_masked, y_masked)
         self.ap.update(logits_masked, y_masked)
         self.mcc.update(preds_masked, y_masked)
     

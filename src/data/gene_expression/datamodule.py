@@ -113,7 +113,7 @@ class GeneDataModule(pl.LightningDataModule):
             sampler=sampler,
             shuffle=(sampler is None),
             drop_last=True,
-            collate_fn=partial(pad_collate_fn, pad_index=self.tokenizer.get_pad_index()),
+            collate_fn=partial(pad_collate_fn, pad_index=self.tokenizer.pad_token_id),
             num_workers=self.num_workers,
             pin_memory=True,
             persistent_workers=True
@@ -131,7 +131,7 @@ class GeneDataModule(pl.LightningDataModule):
             sampler=sampler,
             shuffle=False,
             drop_last=True,
-            collate_fn=partial(pad_collate_fn, pad_index=self.tokenizer.get_pad_index()),
+            collate_fn=partial(pad_collate_fn, pad_index=self.tokenizer.pad_token_id),
             num_workers=self.num_workers,
             pin_memory=True,
             persistent_workers=True
@@ -149,7 +149,7 @@ class GeneDataModule(pl.LightningDataModule):
             sampler=sampler,
             shuffle=False,
             drop_last=False,
-            collate_fn=partial(pad_collate_fn, pad_index=self.tokenizer.get_pad_index()),
+            collate_fn=partial(pad_collate_fn, pad_index=self.tokenizer.pad_token_id),
             num_workers=self.num_workers,
             pin_memory=True,
             persistent_workers=True

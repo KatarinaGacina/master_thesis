@@ -231,3 +231,66 @@ class GeneExpressionModelLongContext(nn.Module):
         out = self.class_head(out)
         
         return out
+    
+
+from modules.downstream.task_head import TaskClassificationHead
+
+class FinetuneModel(nn.Module):
+    def __init__(self, config, pretrained=None):
+        super().__init__()
+
+        self.dna_model = DNAModel(config)
+
+        if pretrained is not None:
+            device = next(self.dna_model.parameters()).device 
+            checkpoint_base = torch.load(pretrained, map_location=device, weights_only=True)
+            base_weights_dict = checkpoint_base.get('base_model_weights')
+
+            if base_weights_dict is None:
+                print("Randomly initialized model.")
+            else:
+                try:
+                    self.dna_model.load_state_dict(base_weights_dict)
+                    print("Loaded pretrained model weights.")
+                except RuntimeError as e:
+                    print(f"Loading failed due to mismatch. Randomly initialized model.")
+        else:
+            print("Randomly initialized model.")
+
+        self.task_head = TaskClassificationHead(feature_dim=config["feature_dim"], output_dim=config["number_labels"])
+
+    def forward(self, x, attn_mask=None):
+        out = self.dna_model(x, attn_mask)
+        out = self.task_head(out)
+        
+        return out
+    
+class FinetuneLongModel(nn.Module):
+    def __init__(self, config, pretrained=None):
+        super().__init__()
+
+        self.dna_model = DNAModelLongContext(config, layer_num=7)
+
+        if pretrained is not None:
+            device = next(self.dna_model.parameters()).device 
+            checkpoint_base = torch.load(pretrained, map_location=device, weights_only=True)
+            base_weights_dict = checkpoint_base.get('base_model_weights')
+
+            if base_weights_dict is None:
+                print("Randomly initialized model.")
+            else:
+                try:
+                    self.dna_model.load_state_dict(base_weights_dict)
+                    print("Loaded pretrained model weights.")
+                except RuntimeError as e:
+                    print(f"Loading failed due to mismatch. Randomly initialized model.")
+        else:
+            print("Randomly initialized model.")
+
+        self.task_head = TaskClassificationHead(feature_dim=config["feature_dim"], output_dim=config["number_labels"])
+
+    def forward(self, x, attn_mask=None):
+        out = self.dna_model(x, attn_mask)
+        out = self.task_head(out)
+        
+        return out

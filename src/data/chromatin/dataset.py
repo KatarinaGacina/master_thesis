@@ -104,7 +104,7 @@ class ChromDataset(Dataset):
             label_tensor = label_tensor.flip(dims=[0])
 
         seq = seq_array.tobytes().decode('ascii')
-        seq_tensor = self.tokenizer.encode(seq)
+        seq_tensor = self.tokenizer.encode(seq, add_special_tokens=False)
         
         return seq_tensor, label_tensor
 

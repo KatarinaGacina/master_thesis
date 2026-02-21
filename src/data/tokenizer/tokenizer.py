@@ -25,7 +25,7 @@ class DNATokenizer:
         self.mask_token_id = self.stoi["<MASK>"]
         self.unk_token_id = self.stoi["N"]
 
-    def encode(self, sequence, include_cls=False):
+    def encode(self, sequence, add_special_tokens=False):
         lookup = self.stoi
         
         cls_id = lookup["<CLS>"]
@@ -37,7 +37,7 @@ class DNATokenizer:
             count=len(sequence)
         )
 
-        if include_cls:
+        if add_special_tokens:
             encoded = np.empty(len(sequence) + 1, dtype=np.int64)
             encoded[0] = cls_id
             encoded[1:] = seq_codes

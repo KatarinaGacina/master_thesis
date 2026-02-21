@@ -59,7 +59,7 @@ class GeneDataset(Dataset):
 
             record = seq_array.tobytes().decode('ascii')
 
-        seq_tensor = self.tokenizer.encode(record)
+        seq_tensor = self.tokenizer.encode(record, add_special_tokens=False)
 
         return seq_tensor, self.labels[idx]
 
